@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <script>
+            function assignGrade(pmt){
+                //var pmt = prompt("Enter your score","91 which you can never get");
+                if(pmt != null){
+                    val = parseInt(pmt);
+                    if(val<50){
+                        console.log("For " + val + ", you got a F");
+                    }
+                    if(val>=50 && val<=60){
+                        console.log("For " + val + ", you got an E");
+                    }
+                    if(val>60 && val<=70){
+                        console.log("For " + val + ", you got a D");
+                    }
+                    if(val>70 && val<=80){
+                        console.log("For " + val + ", you got a C");
+                    }
+                    if(val>80 && val<=90){
+                        console.log("For " + val + ", you got a B");
+                    }
+                    if(val>90 && val<=100){
+                        console.log("For " + val + ", you got an A");
+                    }
+                }
+            }
+            for(var j=0;j<5;j++){
+                for(var i=60;i<=100;i++){
+                    assignGrade(i);
+                }
+            }
+        </script>
+    </head>
+</html>

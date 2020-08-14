@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <script>
+            function hist_print(params) {
+                params = params.split("");
+                var arr = new Array(params.length);
+                for(var i=0; i<params.length; i++){
+                    arr[i] = parseInt(params[i]);
+                }
+                for(var i=0; i<10; i++){
+                    var str = "";
+                    for(var j=0; j<params.length; j++){
+                        if(arr[j]>0){
+                            str = str + "# ";
+                            arr[j] = arr[j] - 1;
+                        }
+                        else
+                            str = str + "  ";
+                    }
+                    document.write(str + "</br>");
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <script>
+            var num = prompt("Enter a number","523");
+            hist_print(num);
+        </script>
+    </body>
+</html>
