@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+<body>
+<script type="text/javascript">
+
+var avg=window.prompt("Enter exam score");
+    document.write(assignGrade(avg));
+    for(i=0;i<5;i++)
+    {
+    for(var j =60;j<=100;j++)
+            {
+                console.log("For"+ j+ " you got a "+ assignGrade(j));
+            }
+    }
+    function assignGrade(avg)
+    {
+        try{
+            if (avg < 60){
+                return 'F' ;      
+          } 
+        else if (avg < 70) {
+            return 'D';
+                  } 
+        else if (avg < 80) 
+             {
+                return 'C';
+        }
+         else if (avg < 90) {
+            return 'B'; 
+        } 
+        else if (avg <= 100) {
+            return 'A'
+
+        }
+        
+            
+        }
+        
+
+        catch(e)
+        {
+        document.write("Invalid");
+        }
+        
+    }
+
+    
+</script>
+</body>
+</html>
