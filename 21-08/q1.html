@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>question1</title>
+</head>
+<body>
+    <input type="number" id="rows">
+    <input type="number" id="cols">
+    <input type="submit" id="gen" value="submit" onclick="gen()">
+    <table id="mul" border="2px" style="border-style: solid;">
+
+    </table>
+</body>
+
+<script>
+    function gen()
+    {
+        console.log("Hello");
+        var r=parseInt(document.getElementById("rows").value)
+        var c=parseInt(document.getElementById("cols").value)
+        output=""
+        for(var i=1;i<=r;i++)
+        {
+            output+="<tr>"
+            for(var j=1;j<=c;j++)
+            {
+                output+="<td>"+j*i+"</td>"
+            }
+            output+="</tr>"
+        }
+        document.getElementById("mul").innerHTML=output
+    }
+</script>
+</html>

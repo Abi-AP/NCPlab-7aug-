@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+</head>
+<style>
+    input[type=submit]
+    {
+        background-color: rgb(83, 82, 82); 
+        color: #09f7f7;
+    }
+
+    input[type=button]
+    {
+        background-color: rgb(78, 77, 77); 
+        color: #09f7f7;
+    }
+</style>
+<body style="font-family: cursive; color: #09f7f7;" onload="startTime()">
+
+    <h2>Clock</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <td><div id="date"></div></td>
+                <td><div id="day"></div></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="text-align: center;">
+                <td colspan="2"><div id="time"></div></td>
+            </tr>
+        </tbody>
+    </table>
+    <br><br>
+    <h2>Alarm</h2>
+
+    <input type="time" id="alarmtime" style="color: #09f7f7; background-color: rgb(97, 93, 93);" onkeyup="stopAlarm()">
+    <input type="submit" id="setalarm" value="Set Alarm"  onclick="setAlarmFunc()">
+    <p id="ring" style="visibility: hidden;">Alarm ringing...</p>
+    <br><br>
+    <h2>Stop Watch</h2>
+        <input type="button" onclick="startWatch()" value="Start" />
+        <input type="button" onclick="stopWatch()" value="Stop" />
+        <input type="button" onclick="resetWatch()" value="Zero" />
+    <p id="res"><span id="min">0</span> : <span id="sec">00</span> : <span id="msec">000</span></p>
+    <script>
+
+        var setAlarm=false
+
+        function setAlarmFunc()
+        {
+            console.log("Alarm On");
+            setAlarm=true
+        }
+
+        function stopAlarm()
+        {
+            setAlarm=false
+        }
+
+        let week=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+        function startTime() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            
+            
+            m = checkTime(m);
+            s = checkTime(s);
+            document.getElementById("date").innerText=today.getDate()+"-"+today.getMonth()+"-"+today.getFullYear()
+            document.getElementById("day").innerText=week[today.getDay()]
+            document.getElementById('time').innerHTML =
+                h + ":" + m + ":" + s;
+            var t = setTimeout(startTime, 500);
+
+            if(setAlarm)
+            {
+                var hcheck=document.getElementById("alarmtime").value
+                var currtimevalue=checkTime(today.getHours())+":"+checkTime(today.getMinutes())
+                if(hcheck==currtimevalue)
+                {
+                    document.getElementById("alarmring").play()
+                    document.getElementById("ring").style.visibility="visible"
+                }
+                else{
+                     document.getElementById("alarmring").pause()
+                     document.getElementById("ring").style.visibility = "hidden"
+                }
+            }
+        }
+        function checkTime(i) {
+            if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
+            return i;
+        }
+
+
+        var timer = null;
+        var min_txt = document.getElementById("min");
+        var min = Number(min_txt.innerHTML);
+        var sec_txt = document.getElementById("sec");
+        var sec = Number(sec_txt.innerHTML);
+        var msec_txt = document.getElementById("msec");
+        var msec = Number(msec_txt.innerHTML);
+        function stopTimeMilliseconds(timer) {
+            if (timer) {
+                clearInterval(timer);
+                return timer;
+            }
+            else return timer;
+        }
+        function startTimeMilliseconds() {
+            var currDate = new Date();
+            return currDate.getTime();
+        }
+        function getElapsedTimeMilliseconds(startMilliseconds) {
+            if (startMilliseconds > 0) {
+                var currDate = new Date();
+                elapsedMilliseconds = (currDate.getTime() - startMilliseconds);
+                return elapsedMilliseconds;
+            }
+            else {
+                return elapsedMilliseconds = 0;
+            }
+        }
+        function startWatch() {
+            timer = stopTimeMilliseconds(timer);
+            var startMilliseconds = startTimeMilliseconds();
+            timer = setInterval(function () {
+                var elapsedMilliseconds = getElapsedTimeMilliseconds(startMilliseconds);
+                if (msec < 10) {
+                    msec_txt.innerHTML = "00" + msec;
+                }
+                else if (msec < 100) {
+                    msec_txt.innerHTML = "0" + msec;
+                }
+                else {
+                    msec_txt.innerHTML = msec;
+                }
+                if (sec < 10) {
+                    sec_txt.innerHTML = "0" + sec;
+                }
+                else {
+                    sec_txt.innerHTML = sec;
+                }
+                min_txt.innerHTML = min;
+                msec = elapsedMilliseconds;
+                if (min >= 59 && sec >= 59 && msec > 900) {
+                    timer = stopTimeMilliseconds(timer);
+                    return true;
+                }
+                if (sec > 59) {
+                    sec = 0;
+                    min++;
+                }
+                if (msec > 999) {
+                    msec = 0;
+                    sec++;
+                    startWatch();
+                }
+            }, 10);
+        }
+        function stopWatch() {
+            timer = stopTimeMilliseconds(timer);
+            return true;
+        }
+        function resetWatch() {
+            timer = stopTimeMilliseconds(timer);
+            msec_txt.innerHTML = "000";
+            msec = 0;
+            sec_txt.innerHTML = "00";
+            sec = 0;
+            min_txt.innerHTML = "0";
+            min = 0;
+            return true;
+        }
+        
+    </script>
+</body>
+</html>

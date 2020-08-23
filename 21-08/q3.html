@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+
+    
+</head>
+<body>
+    <input type="text" name="chapter" id="chapter">
+    <input type="number" name="page" id="page">
+    <input type="button" name="submit" id="submit" value="Print" onclick="indexFunc()">
+
+
+    <table style="table-layout: fixed;" id="list" >
+
+    </table>
+    <script>
+
+
+        document.addEventListener("keyup", function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                indexFunc()
+            }
+        });
+        var arr=[]
+        function indexFunc()
+        {
+            var c_name=document.getElementById("chapter").value
+            var pg= document.getElementById("page").value
+
+            if(c_name==""||pg=="")
+            {
+                alert("Enter data")
+            }
+            else{
+                arr.push({ chap: c_name, pg: pg })
+
+                arr = arr.sort(function (a, b) {
+                    return parseInt(a.pg) - parseInt(b.pg);
+                })
+                var output = ""
+                for (var i = 0; i < arr.length; i++) {
+                    output += "<tr><td>"+(i+1)+"</td><td>"
+                    var slen = arr[i].chap.length
+    
+                    output += arr[i].chap
+                    for (var j = 0; j < (75 - (slen + arr[i].pg.length)); j++) {
+                        output += ". "
+                    }
+                    output += "</td><td>"+arr[i].pg + "</td></tr><br>"
+                }
+                document.getElementById("list").innerHTML = output
+                document.getElementById("chapter").value=""
+                document.getElementById("chapter").select()
+                document.getElementById("page").value=""
+            }
+            
+        }
+    </script>
+</body>
+</html>
